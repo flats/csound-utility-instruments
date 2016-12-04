@@ -15,7 +15,7 @@ nchnls = 2
 
 instr 1
 
-ibpm        = 120
+ibpm        = 120                       ; should agree w/ t in the score
 ibeatlength = sr / (ibpm / 60)
 itotalbeats = 12                        ; length of roll in beats
 idursecs    = (60 / ibpm) * itotalbeats ; length of roll in SECONDS
@@ -45,13 +45,16 @@ asig lposcil3 1, kcps, istarttime, kscale, 1      ; use variable exponential ram
 endin
 </CsInstruments>
 <CsScore>
+; tempo in pairs: time, tempo
+; the initial tempo value below should agree with ibpm in instr 1
+t 0 60
 ; Its table size is deferred,
 ; and format taken from the soundfile header.
 f 1 0 0 1 "sample-sounds/drumset-pattern.wav" 0 0 0
 
 ; Play Instrument #1 for 6 seconds.
 ; This will loop the drum pattern with the loop length becoming shorter for faster repitition.
-i1 0 6
+i1 0 8
 
 </CsScore>
 </CsoundSynthesizer>
