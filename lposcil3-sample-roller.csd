@@ -33,14 +33,6 @@ idursecs    = (60 / p4) * p5            ; length of roll in SECONDS
 iinitialendtime = p6 + (ibeatlength * p7)
 ifinalendtime = p6 + (ibeatlength * p8)
 
-kloop = 10000   ; loop start time in samples
-kend  = 30000   ; loop end time in samples
-
-/*klfo lfo 1.0, 1 / idursecs, 4*/
-/*kcurve logcurve klfo, p9*/
-; kcurve expcurve klfo, 10.0
-/*kscale scale kcurve, ifinalendtime, iinitialendtime*/
-
 if (p10 == 1) then
   ; linear ramp
   kline line iinitialendtime, idursecs, ifinalendtime
