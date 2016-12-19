@@ -8,7 +8,7 @@
 </CsOptions>
 <CsInstruments>
 
-sr = 88200
+sr = 44100
 ksmps = 32
 nchnls = 2
 0dbfs  = 1
@@ -25,7 +25,8 @@ instr sampleroller
            2: exponential curve ramp
            3: scaled logarithmic curve ramp
            4: scaled exponential curve ramp
-        11: cps sample rate speed - 1.5 would be a fifth up */
+           5: oscillation
+        11: freq ratio - 1.5 would be a fifth up */
 
 ibpm        = p4
 ibeatlength = sr / (p4 / 60)            ; length of roll in beats
@@ -54,6 +55,17 @@ elseif (p10 == 4) then
   kcurve expcurve klfo, p9
   kscale scale kcurve, ifinalendtime, iinitialendtime
   asig lposcil3 1, p11, p6, kscale, 1
+elseif (p10 == 5) then
+  ; constant frequency, only p8 applies as length multiplier
+  ifile_length filelen "sample-sounds/processed-hh.aif"
+  print ifile_length
+  asig lposcil3 1, p11, 0, (ifile_length * sr) * p8, 1
+else
+; exponential curve ramp with expon output also applied to freq ratio
+  ifile_length filelen "sample-sounds/processed-hh.aif"
+  kexp expon iinitialendtime, idursecs, ifinalendtime
+  kline line 1, idursecs, 2
+  asig lposcil3 1, kline, p6, kexp, 1
 endif
 
 outs asig, asig
@@ -66,12 +78,21 @@ endin
 t 0 120
 ; Its table size is deferred,
 ; and format taken from the soundfile header.
-f 1 0 0 1 "sample-sounds/drumset-pattern.wav" 0 0 0
+f 1 0 0 1 "sample-sounds/processed-hh.aif" 0 0 0
+f 2 0 128 10 1
 
-/* Play the sampleroller instrument.
+/* Play the sampleroller instrument
    This will loop the drum pattern by truncating the loop sample over time.
    The tempo, p4, should match the t statement above. */
-i "sampleroller" 0 16 120 16 10000 8 0.125 10.0 3 1.5
+/*i "sampleroller" 0 16 120 16 10000 8 0.125 10.0 3 1.5*/
+
+/*i "sampleroller" 0 4 120 16 0 0 0 0 5 1.5*/
+/*i "sampleroller" 4 8 120 16 0 0.00907029478458 4 .1 2 1.5*/
+
+/*i "sampleroller" 0 2 120 2 0 0.45 0.156 10.0 2 1.5
+i "sampleroller" 2 10 120 16 0 0 11 0 5 1.5*/
+
+i "sampleroller" 0 16 120 16 0 8 0.0125 10.0 6 1
 
 </CsScore>
 </CsoundSynthesizer>
