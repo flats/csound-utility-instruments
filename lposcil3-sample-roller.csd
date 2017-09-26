@@ -71,7 +71,7 @@ f 1 0 0 1 "sample-sounds/drumset-pattern.wav" 0 0 0
 /* Play the sampleroller instrument.
    This will loop the drum pattern by truncating the loop sample over time.
    The tempo, p4, should match the t statement above. */
-i "sampleroller" 0 16 120 16 10000 8 0.125 10.0 3 1.5
+i "sampleroller" 0 32 120 4 10 0.08 0.75 80 4 2.0
 
 </CsScore>
 </CsoundSynthesizer>
