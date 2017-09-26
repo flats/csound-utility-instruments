@@ -23,8 +23,8 @@ instr sampleroller
         10: ramp shape
            1: linear ramp
            2: exponential curve ramp
-           3: scaled logarithmic curve ramp
-           4: scaled exponential curve ramp
+           3: scaled logarithmic curve ramp (speeds up more at the end)
+           4: scaled exponential curve ramp (speeds up more at the beginning)
         11: cps sample rate speed - 1.5 would be a fifth up */
 
 ibpm        = p4
