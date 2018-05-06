@@ -1,2 +1,6 @@
 output/
 .DS_Store
+*.ftsave
+*.wav
+!sample-sounds/*.wav
+node_modules/
