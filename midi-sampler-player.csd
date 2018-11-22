@@ -33,7 +33,7 @@ endin
 <CsScore>
 ; dummy statement for real-time MIDI/audio
 f 0 3600
-f 1 0 0 1 "sample-sounds/SDS-01.7-edit.wav" 0 0 1
+f 1 0 0 1 "sample-sounds/sds-01.7-edit.wav" 0 0 1
 
 </CsScore>
 </CsoundSynthesizer>
