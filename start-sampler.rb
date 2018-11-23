@@ -11,6 +11,20 @@ rescue Errno::ESRCH
   false
 end
 
+def translate_uk300_keypad keypad_string
+  answer.sub('^[[', '')
+        .sub('A', '8')
+        .sub('C', '6')
+        .sub('E', '5')
+        .sub('F', '4')
+        .sub('2', '0')
+        .sub('B', '2')
+        .sub('5', '9')
+        .sub('1', '7')
+        .sub('6', '3')
+        .sub('4', '1')
+end
+
 pid = nil
 im_done = nil
 valid_set_id = true
@@ -19,6 +33,10 @@ csound_flags = '-o dac -Mhw:2,0,0 -b32' unless ARGV[0]
 
 until im_done
   answer = cli.ask 'Set number:'
+
+  if answer.start_with? '^[['
+    answer = translate_uk300_keypad answer
+  end
 
   Process.kill('SIGHUP', pid) if (pid && process_running?(pid))
 
