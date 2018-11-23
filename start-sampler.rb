@@ -13,17 +13,26 @@ rescue Errno::ESRCH
 end
 
 def translate_uk300_keypad keypad_string
-  answer.sub('^[[', '')
-        .sub('A', '8')
-        .sub('C', '6')
-        .sub('E', '5')
-        .sub('F', '4')
-        .sub('2', '0')
-        .sub('B', '2')
-        .sub('5', '9')
-        .sub('1', '7')
-        .sub('6', '3')
-        .sub('4', '1')
+  encoding_options = {
+    :invalid           => :replace,
+    :undef             => :replace,
+    :replace           => '',
+    :universal_newline => true
+  }
+  ascii_encoded_keypad_string = keypad_string.encode(Encoding.find('ASCII'), encoding_options)
+
+  keypad_string.gsub(/\u001B/, '')
+               .gsub(/\[/, '')
+               .gsub('A', '8')
+               .gsub('C', '6')
+               .gsub('E', '5')
+               .gsub('D', '4')
+               .gsub('2~', '0')
+               .gsub('B', '2')
+               .gsub('5~', '9')
+               .gsub('1~', '7')
+               .gsub('6~', '3')
+               .gsub('4~', '1')
 end
 
 pid = nil
@@ -35,7 +44,7 @@ csound_flags = '-o dac -Mhw:2,0,0 -b32' unless ARGV[0]
 until im_done
   answer = cli.ask 'Set number:'
 
-  if answer.start_with? '^[['
+  if answer.include? "\u001B"
     answer = translate_uk300_keypad answer
   end
 
