@@ -12,10 +12,11 @@ rescue Errno::ESRCH
 end
 
 pid = nil
-imdone = nil
+im_done = nil
+valid_set_id = true
 cli = HighLine.new
 
-until imdone
+until im_done
   answer = cli.ask 'Set number:'
 
   Process.kill('SIGHUP', pid) if (pid && process_running?(pid))
@@ -26,16 +27,24 @@ until imdone
   when '123'
     filename = 'midi-sampler-player.csd'
   when '456'
-    filename = 'midi-sampler-player-hh.csd'
+    filename = 'midi-sampler-player-kit-2.csd'
   when '000'
-    imdone = true
+    im_done = true
+    valid_set_id = false
     puts 'see ya'
+  else
+    puts 'not a valid set id'
+    valid_set_id = false
   end
 
-  pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} #{ARGV[0]}"
-  pid = wait_thr[:pid]
-  po.close
-  puts pid
+  if valid_set_id
+    pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} #{ARGV[0]}"
+    pid = wait_thr[:pid]
+    po.close
+    puts pid
+  end
+
+  valid_set_id = true
 end
 
 Process.kill('SIGHUP', pid) if (pid && process_running?(pid))
