@@ -48,7 +48,7 @@ endin
 </CsInstruments>
 <CsScore>
 ; dummy statement for real-time MIDI/audio
-f 0 3600
+f 0 43200
 f 1 0 0 1 "sample-sounds/mv-asdm-02.wav" 0 0 1
 f 2 0 0 1 "sample-sounds/mv-asdm-03.wav" 0 0 1
 f 3 0 0 1 "sample-sounds/mv-asdm-04.wav" 0 0 1
