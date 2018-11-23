@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 # usage: start-sampler.rb "-o dac -M0 -b16"
+# note: list midi devices on pi w/ `amidi -l`
 require 'highline'
 require 'open3'
 
