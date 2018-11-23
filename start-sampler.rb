@@ -15,6 +15,7 @@ pid = nil
 im_done = nil
 valid_set_id = true
 cli = HighLine.new
+csound_flags = '-o dac -Mhw:2,0,0 -b32' unless ARGV[0]
 
 until im_done
   answer = cli.ask 'Set number:'
@@ -38,7 +39,7 @@ until im_done
   end
 
   if valid_set_id
-    pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} #{ARGV[0]}"
+    pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} #{csound_flags}"
     pid = wait_thr[:pid]
     po.close
     puts pid
