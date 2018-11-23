@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+
+# usage: start-sampler.rb "-o dac -M0 -b16"
 require 'highline'
 require 'open3'
 
@@ -16,7 +18,7 @@ cli = HighLine.new
 until imdone
   answer = cli.ask 'Set number:'
 
-  Process.kill('SIGHUP', pid) if process_running?(pid)
+  Process.kill('SIGHUP', pid) if (pid && process_running?(pid))
 
   sleep 2
 
@@ -30,10 +32,10 @@ until imdone
     puts 'see ya'
   end
 
-  pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} -o dac -M0 -b16"
+  pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} #{ARGV[0]}"
   pid = wait_thr[:pid]
   po.close
   puts pid
 end
 
-Process.kill('SIGHUP', pid) if process_running?(pid)
+Process.kill('SIGHUP', pid) if (pid && process_running?(pid))
