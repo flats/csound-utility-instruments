@@ -53,8 +53,8 @@ until im_done
   sleep 2
 
   case answer
-  when '123'
-    filename = 'midi-sampler-player.csd'
+  when '353'
+    filename = 'midi-sampler-player-eleanore.csd'
   when '456'
     filename = 'midi-sampler-player-kit-2.csd'
   when '000'
@@ -67,7 +67,7 @@ until im_done
   end
 
   if valid_set_id
-    pi, po, pe, wait_thr = Open3.popen3 "csound #{filename} #{csound_flags}"
+    pi, po, pe, wait_thr = Open3.popen3 "csound /home/pi/Documents/csound-utility-instruments/#{filename} #{csound_flags}"
     pid = wait_thr[:pid]
     po.close
     puts pid
