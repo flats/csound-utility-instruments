@@ -19,7 +19,7 @@ kamp  = .9
 kcps  = 1
 ibas  = 1
 
-kenv linsegr 0.5, 0.2, 5, 2, 5, 0.5, 0
+kenv linsegr 5, 2, 5, 0.5, 0
 kenv expcurve kenv, 8
 aenv interp kenv
 
